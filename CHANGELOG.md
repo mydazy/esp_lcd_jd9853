@@ -4,6 +4,14 @@ All notable changes to **esp_lcd_jd9853** will be documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-04-26
+
+### Notes
+
+- **No API or behavior change.** Driver was already pure C since v1.0.0.
+- Version aligned with the **mydazy/esp_lcd_touch_axs5106l** and **mydazy/esp_sc7a20h** v2.0.0 release, which underwent a full C rewrite. Bumping all three together lets integrators pin a single major version (`^2.0.0`).
+- Source-compatible drop-in for v1.0.1.
+
 ## [1.0.1] - 2026-04-26
 
 ### Changed
