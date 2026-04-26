@@ -225,9 +225,8 @@ static esp_err_t panel_jd9853_init(esp_lcd_panel_t *panel)
     jd9853_panel_t *jd9853 = __containerof(panel, jd9853_panel_t, base);
     esp_lcd_panel_io_handle_t io = jd9853->io;
 
-    /* Apply the vendor init sequence directly. The sequence already includes
-     * SLPOUT (0x11); separate SLPOUT/MADCTL/COLMOD calls are intentionally
-     * omitted to avoid duplicated commands and delays. */
+    /* 【优化】直接应用厂商初始化序列，序列中已包含 SLPOUT (0x11)
+     * 移除单独的 SLPOUT/MADCTL/COLMOD，避免重复延迟和命令 */
     const jd9853_lcd_init_cmd_t *init_cmds;
     uint16_t init_cmds_size;
 
@@ -240,7 +239,7 @@ static esp_err_t panel_jd9853_init(esp_lcd_panel_t *panel)
     }
 
     for (int i = 0; i < init_cmds_size; i++) {
-        /* Track MADCTL/COLMOD values so subsequent mirror/swap calls work. */
+        /* 跟踪 MADCTL/COLMOD 值用于后续 mirror/swap 操作 */
         if (init_cmds[i].cmd == LCD_CMD_MADCTL && init_cmds[i].data) {
             jd9853->madctl_val = ((uint8_t *)init_cmds[i].data)[0];
         } else if (init_cmds[i].cmd == LCD_CMD_COLMOD && init_cmds[i].data) {
